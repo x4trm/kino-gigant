@@ -25,6 +25,9 @@
             AddShow();
             break;
           case "3":
+            ReserveSeat();
+            break;
+          case "4":
             Console.WriteLine("Exiting the app....");
             return;
           default:
@@ -32,6 +35,43 @@
             break;
         }
         Console.WriteLine();
+      }
+    }
+    static void ReserveSeat()
+    {
+      // 1. Sprawdzamy ktory to film
+      // 2. Wyswietlamy liste wolnych miejsc
+      // 3. Pytamy uzytkowniak o numer miejsca
+      // 4. Bierzemy miejsce na podstawie numeru
+      // 5. Rezerwujemy miejsce 
+      DisplayShows();
+      Console.Write("Select show index: ");
+      int index = int.Parse(Console.ReadLine());
+      var selectedShow = catalog.Shows[index];
+      var freeSeats = selectedShow.Seats.Where(s => !s.IsReserved).ToList();
+      if(freeSeats.Count == 0)
+      {
+        Console.WriteLine("No free sewats available for this show.");
+        return;
+      }
+      Console.WriteLine("Free seats: ");
+      foreach(var seat in freeSeats)
+      {
+       Console.Write(seat.SeatNumber + " ");
+      }  
+      Console.WriteLine();
+      Console.Write("Choose seat number: ");
+      int seatNumber = int.Parse(Console.ReadLine());
+
+      var seatToReseve = selectedShow.Seats.FirstOrDefault( s => s.SeatNumber == seatNumber);
+      if(seatToReseve != null && !seatToReseve.IsReserved)
+      {
+        seatToReseve.Reserve();
+        Console.WriteLine($"Seat {seatNumber} reserved!");
+      }
+      else
+      {
+        Console.WriteLine("Invalid seat or seat alredy reserved");
       }
     }
     static void DisplayShows()

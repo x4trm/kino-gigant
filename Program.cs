@@ -59,6 +59,19 @@
         Console.WriteLine("Invalid time format.");
         return;
       }
+      DateTime showHour = new DateTime(
+        showDate.Year,
+        showDate.Month,
+        showDate.Day,
+        tempDateTime.Hour,
+        tempDateTime.Minute,
+        0
+      );
+      Console.Write("Enter the number of sets: ");
+      if(!int.TryParse(Console.ReadLine(),out int numberOfSeats) || numberOfSeats <= 0)
+      {
+        Console.WriteLine("Invalid number of setes. Show not added.");
+      }
       catalog.Add(new Show(title, showDate, showHour, numberOfSeats));
       Console.WriteLine("New show added successfully!");
     }

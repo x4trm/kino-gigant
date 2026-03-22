@@ -51,7 +51,7 @@
       var freeSeats = selectedShow.Seats.Where(s => !s.IsReserved).ToList();
       if(freeSeats.Count == 0)
       {
-        Console.WriteLine("No free sewats available for this show.");
+        Console.WriteLine("No free seats available for this show.");
         return;
       }
       Console.WriteLine("Free seats: ");
